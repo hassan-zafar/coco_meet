@@ -1,4 +1,5 @@
 import 'package:coco_meet/utils/constants.dart';
+import 'package:coco_meet/widgets/buttonWidgets.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -7,39 +8,60 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(welcomeFrame),
-          IconTextOutlinedBtn(
-              context: context,
-              icon: const Icon(Icons.facebook),
-              text: 'Continue with Facebook'),
-          IconTextOutlinedBtn(
-              context: context,
-              icon: const Icon(Icons.g_mobiledata_outlined),
-              text: 'Continue with Google'),
-          IconTextOutlinedBtn(
-              context: context,
-              icon: const Icon(Icons.apple),
-              text: 'Continue with Apple'),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(welcomeFrame),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "Let's You In",
+                style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+              ),
+            ),
+            IconTextOutlinedBtn(
+                context: context,
+                icon: const Icon(Icons.facebook),
+                text: 'Continue with Facebook'),
+            IconTextOutlinedBtn(
+                context: context,
+                icon: const Icon(Icons.g_mobiledata_outlined),
+                text: 'Continue with Google'),
+            IconTextOutlinedBtn(
+                context: context,
+                icon: const Icon(Icons.apple),
+                text: 'Continue with Apple'),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('or'),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: BlueElevatedButton(
+                  text: 'Sign Up with Password',
+                  onPressed: () {
+                    // Navigator.pushNamed(context, '/signup');
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Center IconTextOutlinedBtn({context, String? text, Icon? icon}) {
     return Center(
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        padding: const EdgeInsets.all(16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: OutlinedButton(
           style: OutlinedButton.styleFrom(
-            primary: Colors.white,
-            backgroundColor: Colors.blue,
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(24.0),
             ),
           ),
           onPressed: () {},
