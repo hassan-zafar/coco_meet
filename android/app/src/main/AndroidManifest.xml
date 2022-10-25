@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.coco_meet">
+    package="com.hassanzafar.coco_meet">
    <application
         android:label="coco_meet"
         android:name="${applicationName}"

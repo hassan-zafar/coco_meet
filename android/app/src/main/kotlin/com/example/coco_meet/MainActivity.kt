@@ -1,4 +1,4 @@
-package com.example.coco_meet
+package com.hassanzafar.coco_meet
 
 import io.flutter.embedding.android.FlutterActivity
 

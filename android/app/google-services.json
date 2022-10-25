@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "903080087608",
+    "project_id": "coco-meet",
+    "storage_bucket": "coco-meet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903080087608:android:1f9f9b339a42896a1316cd",
+        "android_client_info": {
+          "package_name": "com.hassanzafar.coco_meet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903080087608-6360oui13ibl579v9dlir0nv3pu9upk3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hassanzafar.coco_meet",
+            "certificate_hash": "d3984de38e8552e8a961dbb0688d5693105fc273"
+          }
+        },
+        {
+          "client_id": "903080087608-g15caebmrqdnt27mj8bkklth6fvi1u1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxxd8b8Z8ivo68A3xq2yc0WtsOu_4zlt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903080087608-g15caebmrqdnt27mj8bkklth6fvi1u1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
