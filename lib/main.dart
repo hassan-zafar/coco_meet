@@ -1,6 +1,4 @@
-import 'package:coco_meet/screens/login_screen.dart';
-import 'package:coco_meet/screens/profile_page_screen.dart';
-import 'package:coco_meet/screens/welcome_screen.dart';
+import 'package:coco_meet/screens/intro_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyProfilePageScreen(),
+      home: const OnboardingScreen(),
     );
   }
 }

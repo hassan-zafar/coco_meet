@@ -1,4 +1,4 @@
-import 'package:coco_meet/utils/constants.dart';
+import 'package:coco_meet/Utils/constants.dart';
 import 'package:coco_meet/widgets/buttonWidgets.dart';
 import 'package:flutter/material.dart';
 

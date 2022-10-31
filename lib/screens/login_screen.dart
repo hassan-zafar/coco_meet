@@ -1,4 +1,4 @@
-import 'package:coco_meet/utils/constants.dart';
+import 'package:coco_meet/Utils/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/buttonWidgets.dart';
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Text('Remember me'),
               ],
             ),
-            BlueElevatedButton(text: 'Sign In'),
+            BlueElevatedButton(text: 'Sign In', onPressed: () {}),
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text('Forgot the password',

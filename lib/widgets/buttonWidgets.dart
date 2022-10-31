@@ -1,3 +1,4 @@
+import 'package:coco_meet/Utils/constants.dart';
 import 'package:flutter/material.dart';
 
 OutlinedButton outlinedIconButtons(IconData icon) {
@@ -15,22 +16,26 @@ OutlinedButton outlinedIconButtons(IconData icon) {
 }
 
 class BlueElevatedButton extends StatelessWidget {
-  const BlueElevatedButton({
+  BlueElevatedButton({
     super.key,
     required this.text,
+    required this.onPressed,
   });
   final String text;
+  VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF584cf4),
+          backgroundColor: primaryColor,
+          elevation: 10,
           fixedSize: const Size(400, 50),
+          shadowColor: primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(text));
   }
 }

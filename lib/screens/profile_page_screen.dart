@@ -1,4 +1,4 @@
-import 'package:coco_meet/utils/constants.dart';
+import 'package:coco_meet/Utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class MyProfilePageScreen extends StatefulWidget {
