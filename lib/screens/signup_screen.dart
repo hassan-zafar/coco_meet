@@ -1,7 +1,7 @@
 import 'package:coco_meet/Utils/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/buttonWidgets.dart';
+import '../widgets/button_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,8 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool rememberMe = true;
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Text('Remember me'),
               ],
             ),
-            BlueElevatedButton(text: 'Sign Up', onPressed: null),
+            BlueElevatedButton(text: 'Sign Up', onPressed: () {}),
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text('Forgot the password',

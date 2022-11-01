@@ -1,5 +1,5 @@
 import 'package:coco_meet/Utils/constants.dart';
-import 'package:coco_meet/widgets/buttonWidgets.dart';
+import 'package:coco_meet/widgets/button_widgets.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -22,15 +22,15 @@ class WelcomeScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
               ),
             ),
-            IconTextOutlinedBtn(
+            iconTextOutlinedBtn(
                 context: context,
                 icon: const Icon(Icons.facebook),
                 text: 'Continue with Facebook'),
-            IconTextOutlinedBtn(
+            iconTextOutlinedBtn(
                 context: context,
                 icon: const Icon(Icons.g_mobiledata_outlined),
                 text: 'Continue with Google'),
-            IconTextOutlinedBtn(
+            iconTextOutlinedBtn(
                 context: context,
                 icon: const Icon(Icons.apple),
                 text: 'Continue with Apple'),
@@ -52,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 
-  Center IconTextOutlinedBtn({context, String? text, Icon? icon}) {
+  Center iconTextOutlinedBtn({context, String? text, Icon? icon}) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),

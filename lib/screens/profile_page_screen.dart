@@ -1,4 +1,5 @@
 import 'package:coco_meet/Utils/constants.dart';
+import 'package:coco_meet/widgets/button_widgets.dart';
 import 'package:flutter/material.dart';
 
 class MyProfilePageScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class MyProfilePageScreen extends StatefulWidget {
 }
 
 class _MyProfilePageScreenState extends State<MyProfilePageScreen> {
+  String value = 'male';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +55,33 @@ class _MyProfilePageScreenState extends State<MyProfilePageScreen> {
               ),
               CustomTextField(hintText: 'Full Name'),
               CustomTextField(hintText: 'Nickname'),
-              CustomTextField(hintText: 'Date of Birth',suffixIcon: Icons.date_range_outlined,),
-              CustomTextField(hintText: 'Email',suffixIcon: Icons.email),
+              CustomTextField(
+                hintText: 'Date of Birth',
+                suffixIcon: Icons.date_range_outlined,
+              ),
+              CustomTextField(hintText: 'Email', suffixIcon: Icons.email),
+              DropdownButton(
+                hint: const Text(
+                    'Choose the Gender'), // Not necessary for Option 1
+                value: value,
+
+                items: const [
+                  DropdownMenuItem(
+                    value: 'male',
+                    child: Text('Male'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'female',
+                    child: Text('Female'),
+                  ),
+                ],
+                onChanged: (newValue) {
+                  setState(() {
+                    value = newValue!;
+                  });
+                },
+              ),
+              BlueElevatedButton(text: 'Continue', onPressed: (() {})),
             ],
           ),
         ),

@@ -1,5 +1,5 @@
 import 'package:coco_meet/screens/welcome_screen.dart';
-import 'package:coco_meet/widgets/buttonWidgets.dart';
+import 'package:coco_meet/widgets/button_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -111,3 +111,4 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
+
