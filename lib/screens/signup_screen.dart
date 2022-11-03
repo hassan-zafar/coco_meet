@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }),
                 const Text('Remember me'),
               ],
-            ),
+            ),  
             BlueElevatedButton(text: 'Sign Up', onPressed: () {}),
             const Padding(
               padding: EdgeInsets.all(8.0),
