@@ -96,8 +96,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
         showSkipButton: false,
-        skip: const Icon(Icons.skip_next),
-        next: const Icon(Icons.navigate_next_outlined),
+        // skip: const Icon(Icons.skip_next),
+        next: const Icon(
+          Icons.navigate_next_outlined,
+          color: Colors.transparent,
+        ),
         done: const Text("", style: TextStyle(fontWeight: FontWeight.w600)),
         dotsDecorator: DotsDecorator(
             size: const Size.square(10.0),
@@ -111,4 +114,3 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
-

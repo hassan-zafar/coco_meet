@@ -1,6 +1,8 @@
 import 'package:coco_meet/Utils/constants.dart';
+import 'package:coco_meet/screens/Admin%20Screens/upload_event.dart';
 import 'package:coco_meet/widgets/button_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class MyProfilePageScreen extends StatefulWidget {
   const MyProfilePageScreen({super.key});
@@ -60,6 +62,18 @@ class _MyProfilePageScreenState extends State<MyProfilePageScreen> {
                 suffixIcon: Icons.date_range_outlined,
               ),
               CustomTextField(hintText: 'Email', suffixIcon: Icons.email),
+              IntlPhoneField(
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                ),
+                initialCountryCode: 'US',
+                onChanged: (phone) {
+                  print(phone.completeNumber);
+                },
+              ),
               DropdownButton(
                 hint: const Text(
                     'Choose the Gender'), // Not necessary for Option 1
@@ -81,7 +95,13 @@ class _MyProfilePageScreenState extends State<MyProfilePageScreen> {
                   });
                 },
               ),
-              BlueElevatedButton(text: 'Continue', onPressed: (() {})),
+              BlueElevatedButton(
+                  text: 'Continue',
+                  onPressed: (() {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => UploadEventForm(isEditable: true),
+                    ));
+                  })),
             ],
           ),
         ),

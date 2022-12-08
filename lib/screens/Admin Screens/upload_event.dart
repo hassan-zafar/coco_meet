@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coco_meet/widgets/button_widgets.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -32,18 +33,18 @@ class _UploadEventFormState extends State<UploadEventForm> {
   UploadTask? task;
   File? file;
 
-  var _productTitle = '';
-  String _productAudioUrl = '';
-  var _productCategory = '';
-  var _categoryDescription = '';
+  var _eventTitle = '';
+  // String _productAudioUrl = '';
+  var _eventCategory = '';
+  var _eventLocation = '';
   var _productDescription = '';
-  var _videoLength = '';
+  // var _videoLength = '';
   String fullPath = '';
   final TextEditingController _categoryController = TextEditingController();
-  final TextEditingController _categoryDescriptionController =
+  final TextEditingController _eventLocationController =
       TextEditingController();
-  final TextEditingController _productTitleController = TextEditingController();
-  final TextEditingController _productDescriptionController =
+  final TextEditingController _eventTitleController = TextEditingController();
+  final TextEditingController _eventDescriptionController =
       TextEditingController();
   String? _categoryValue;
   final GlobalMethods _globalMethods = GlobalMethods();
@@ -63,18 +64,17 @@ class _UploadEventFormState extends State<UploadEventForm> {
   void initState() {
     super.initState();
     if (widget.isEditable && widget.details != null) {
-      _productTitle = widget.details!.title!;
-      _productAudioUrl = widget.details!.videoUrl!;
-      _productCategory = widget.details!.productCategoryName!;
-      _categoryDescription = widget.details!.productCategoryName!;
+      _eventTitle = widget.details!.title!;
+      // _productAudioUrl = widget.details!.videoUrl!;
+      _eventCategory = widget.details!.productCategoryName!;
+      _eventLocation = widget.details!.productCategoryName!;
       _productDescription = widget.details!.description!;
-      _videoLength = widget.details!.videoLength!;
+      // _videoLength = widget.details!.videoLength!;
       _categoryValue = widget.details!.productCategoryName;
       _categoryController.text = widget.details!.productCategoryName!;
-      _categoryDescriptionController.text =
-          widget.details!.productCategoryName!;
-      _productTitleController.text = widget.details!.title!;
-      _productDescriptionController.text = widget.details!.description!;
+      _eventLocationController.text = widget.details!.productCategoryName!;
+      _eventTitleController.text = widget.details!.title!;
+      _eventDescriptionController.text = widget.details!.description!;
     }
   }
 
@@ -100,28 +100,26 @@ class _UploadEventFormState extends State<UploadEventForm> {
   }
 
   void _trySubmit() async {
-    print("here");
+    // print("here");
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
     if (isValid) {
       _formKey.currentState!.save();
-      print(_productTitle);
-      print(_productCategory);
-      print(_categoryDescription);
-      print(_productDescription);
-      print(_videoLength);
+      // print(_eventTitle);
+      // print(_eventCategory);
+      // print(_eventLocation);
+      // print(_productDescription);
+      // print(_videoLength);
       // Use those values to send our request ...
     }
-    print("isValid $isValid");
+    // print("isValid $isValid");
 
     if (isValid) {
       _formKey.currentState!.save();
       try {
         if (_pickedImage == null && !widget.isEditable) {
           _globalMethods.authErrorHandle('Please pick an image', context);
-        } else if (_productAudioUrl == null && !widget.isEditable) {
-          _globalMethods.authErrorHandle('Please pick a video', context);
         } else {
           setState(() {
             _isLoading = true;
@@ -130,10 +128,10 @@ class _UploadEventFormState extends State<UploadEventForm> {
             final ref = FirebaseStorage.instance
                 .ref()
                 .child('productsImages')
-                .child(_productTitle + '.jpg');
+                .child(_eventTitle + '.jpg');
             await ref.putFile(_pickedImage!);
             url = await ref.getDownloadURL();
-            await uploadFile();
+            // await uploadFile();
           }
           final User? user = _auth.currentUser;
           final _uid = user!.uid;
@@ -144,9 +142,9 @@ class _UploadEventFormState extends State<UploadEventForm> {
                 .doc(product.productId!)
                 .update({
               'productId': product.productId,
-              'productTitle': _productTitle,
-              'productCategory': _productCategory,
-              'categoryDescription': _categoryDescription,
+              'productTitle': _eventTitle,
+              'productCategory': _eventCategory,
+              'categoryDescription': _eventLocation,
               'productDescription': _productDescription,
               'userId': _uid,
               'createdAt': Timestamp.now(),
@@ -160,21 +158,20 @@ class _UploadEventFormState extends State<UploadEventForm> {
                     });
             Navigator.canPop(context) ? Navigator.pop(context) : null;
           } else {
-            final String productId = uuid.v4();
-            print('productId $productId');
+            final String eventId = uuid.v4();
             await FirebaseFirestore.instance
                 .collection('products')
-                .doc(productId)
+                .doc(eventId)
                 .set({
-              'productId': productId,
-              'productTitle': _productTitle,
-              'videoUrl': _productAudioUrl,
-              'productImage': url,
+              'eventId': eventId,
+              'eventTitle': _eventTitle,
+              // 'videoUrl': _productAudioUrl,
+              'eventImage': url,
               'path': fullPath,
-              'productCategory': _productCategory,
-              'categoryDescription': _categoryDescription,
+              'eventCategory': _eventCategory,
+              'eventLocation': _eventLocation,
               'productDescription': _productDescription,
-              'videoLength': _videoLength,
+              // 'videoLength': _videoLength,
               'userId': _uid,
               'createdAt': Timestamp.now(),
             }).then((value) => {
@@ -190,13 +187,11 @@ class _UploadEventFormState extends State<UploadEventForm> {
         }
       } catch (error) {
         _globalMethods.authErrorHandle(error.toString(), context);
-        print('error occured ${error.toString()}');
       } finally {
         setState(() {
           _isLoading = false;
         });
 
-        print(_isLoading);
       }
     }
   }
@@ -236,58 +231,9 @@ class _UploadEventFormState extends State<UploadEventForm> {
 
   @override
   Widget build(BuildContext context) {
-    final fileName = file != null ? _productTitle : 'No File Selected';
+    final fileName = file != null ? _eventTitle : 'No File Selected';
 
     return Scaffold(
-      bottomSheet: Container(
-        height: kBottomNavigationBarHeight * 0.8,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          // color: ColorsConsts.white,
-          border: Border(
-            top: BorderSide(
-              color: Colors.grey,
-              width: 0.5,
-            ),
-          ),
-        ),
-        child: Material(
-          color: Theme.of(context).backgroundColor,
-          child: InkWell(
-            onTap: () => _trySubmit(),
-            splashColor: Colors.grey,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 2),
-                  child: _isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : const Text('Upload',
-                          style: TextStyle(fontSize: 16),
-                          textAlign: TextAlign.center),
-                ),
-                GradientIcon(
-                  Icons.upload,
-                  20,
-                  LinearGradient(
-                    colors: <Color>[
-                      Colors.green,
-                      Colors.yellow,
-                      Colors.deepOrange,
-                      Colors.orange,
-                      Colors.yellow.shade800
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -310,7 +256,7 @@ class _UploadEventFormState extends State<UploadEventForm> {
                         padding: const EdgeInsets.only(right: 9),
                         child: TextFormField(
                           key: const ValueKey('Title'),
-                          controller: _productTitleController,
+                          controller: _eventTitleController,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter a Title';
@@ -322,7 +268,7 @@ class _UploadEventFormState extends State<UploadEventForm> {
                             labelText: 'Event Title',
                           ),
                           onSaved: (value) {
-                            _productTitle = value!;
+                            _eventTitle = value!;
                           },
                         ),
                       ),
@@ -495,13 +441,11 @@ class _UploadEventFormState extends State<UploadEventForm> {
                                   minTime: DateTime.now(),
                                   maxTime: DateTime(2024, 6, 7),
                                   onChanged: (date) {
-                                    print('change $date');
                                   },
                                   onConfirm: (date) {
                                     setState(() {
                                       eventStartDate = date;
                                     });
-                                    print('confirm $date');
                                   },
                                   currentTime: DateTime.now(),
                                 );
@@ -510,7 +454,7 @@ class _UploadEventFormState extends State<UploadEventForm> {
                                 eventStartDate != null
                                     ? '${eventStartDate!.day}/${eventStartDate!.month}/${eventStartDate!.year}'
                                     : 'Select Event Starting Date',
-                                style: TextStyle(color: Colors.blue),
+                                style: const TextStyle(color: Colors.blue),
                               )),
                           TextButton(
                               onPressed: () {
@@ -520,14 +464,11 @@ class _UploadEventFormState extends State<UploadEventForm> {
                                   minTime: DateTime.now(),
                                   maxTime: DateTime(2024, 6, 7),
                                   onChanged: (date) {
-                                    print('change $date');
                                   },
                                   onConfirm: (date) {
                                     setState(() {
                                       eventEndDate = date;
                                     });
-                                    print('confirm $date');
-                                    print('confirm $date');
                                   },
                                   currentTime: DateTime.now(),
                                 );
@@ -536,7 +477,7 @@ class _UploadEventFormState extends State<UploadEventForm> {
                                 eventEndDate != null
                                     ? '${eventEndDate!.day}/${eventEndDate!.month}/${eventEndDate!.year}'
                                     : 'Select Event End Date',
-                                style: TextStyle(color: Colors.blue),
+                                style: const TextStyle(color: Colors.blue),
                               )),
                         ],
                       ),
@@ -564,7 +505,7 @@ class _UploadEventFormState extends State<UploadEventForm> {
                                   labelText: 'Add a new Category',
                                 ),
                                 onSaved: (value) {
-                                  _productCategory = value!;
+                                  _eventCategory = value!;
                                 },
                               ),
                             ),
@@ -589,7 +530,6 @@ class _UploadEventFormState extends State<UploadEventForm> {
                                 _categoryValue = value!;
                                 _categoryController.text = value;
                                 //_controller.text= _productCategory;
-                                print(_productCategory);
                               });
                             },
                             hint: const Text('Select a Category'),
@@ -607,22 +547,22 @@ class _UploadEventFormState extends State<UploadEventForm> {
                               padding: const EdgeInsets.only(right: 9),
                               child: Container(
                                 child: TextFormField(
-                                  controller: _categoryDescriptionController,
+                                  controller: _eventLocationController,
 
                                   key: const ValueKey(
                                       'Category Description(Optional)'),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return 'Category Description is missed';
+                                      return 'Event Location is missed';
                                     }
                                     return null;
                                   },
                                   //keyboardType: TextInputType.emailAddress,
                                   decoration: const InputDecoration(
-                                    labelText: 'Category Description',
+                                    labelText: 'Event Location',
                                   ),
                                   onSaved: (value) {
-                                    _categoryDescription = value!;
+                                    _eventLocation = value!;
                                   },
                                 ),
                               ),
@@ -633,7 +573,7 @@ class _UploadEventFormState extends State<UploadEventForm> {
                       const SizedBox(height: 15),
                       TextFormField(
                           key: const ValueKey('Description'),
-                          controller: _productDescriptionController,
+                          controller: _eventDescriptionController,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'video description is required';
@@ -690,8 +630,21 @@ class _UploadEventFormState extends State<UploadEventForm> {
               ),
             ),
             const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: _isLoading
+                  ? const CircularProgressIndicator.adaptive()
+                  : BlueElevatedButton(
+                      text: 'Upload',
+                      onPressed: () => _trySubmit(),
+                      icon: Icons.upload,
+                    ),
+            ),
+            const SizedBox(
               height: 50,
-            )
+            ),
           ],
         ),
       ),
@@ -715,25 +668,25 @@ class _UploadEventFormState extends State<UploadEventForm> {
     // debugPrint("========" + fileVideocontroller.value.duration.toString());
   }
 
-  Future uploadFile() async {
-    if (file == null) return;
-    final fileName = _productTitle;
-    final destination = 'videos/$_productCategory/$fileName';
+  // Future uploadFile() async {
+  //   if (file == null) return;
+  //   final fileName = _eventTitle;
+  //   final destination = 'videos/$_eventCategory/$fileName';
 
-    // task = FirebaseApi.uploadFile(destination, file!);
-    setState(() {});
+  //   // task = FirebaseApi.uploadFile(destination, file!);
+  //   setState(() {});
 
-    if (task == null) return;
+  //   if (task == null) return;
 
-    final snapshot = await task!.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
-    fullPath = destination;
-    setState(() {
-      _productAudioUrl = urlDownload;
-    });
-    CustomToast.successToast(message: "Audio Uploaded SuccessFully");
-    print('Download-Link: $urlDownload');
-  }
+  //   final snapshot = await task!.whenComplete(() {});
+  //   final urlDownload = await snapshot.ref.getDownloadURL();
+  //   fullPath = destination;
+  //   setState(() {
+  //     _productAudioUrl = urlDownload;
+  //   });
+  //   CustomToast.successToast(message: "Audio Uploaded SuccessFully");
+  //   print('Download-Link: $urlDownload');
+  // }
 
   Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
         stream: task.snapshotEvents,

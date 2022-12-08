@@ -6,3 +6,4 @@ String cocoMeetLogoText = 'assets/Coco-meet-logo.png';
 String profilePerson = 'assets/images/profile.png';
 String emptyNotificationImg = 'assets/images/empty_notification.png';
 Color primaryColor = const Color(0xFF584cf4);
+String cometLottie = 'assets/lottie/comet-outro.json';

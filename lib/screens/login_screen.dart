@@ -1,3 +1,4 @@
+import 'package:coco_meet/Services/auth_service.dart';
 import 'package:coco_meet/Utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -81,9 +82,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  outlinedIconButtons(Icons.facebook),
-                  outlinedIconButtons(Icons.g_mobiledata),
-                  outlinedIconButtons(Icons.apple),
+                  OutlinedIconButtons(Icons.facebook, () {}),
+                  OutlinedIconButtons(Icons.g_mobiledata, () {
+                    AuthenticationService().signinWithGoogle();
+                  }),
+                  OutlinedIconButtons(Icons.apple, () {}),
                 ],
               ),
             )
@@ -93,4 +96,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
